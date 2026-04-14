@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -520,6 +520,14 @@
         { headers: { Authorization: `Bearer ${GH_TOKEN}`, Accept: 'application/vnd.github+json' } }
       );
       const fileData = await getRes.json();
+      if (!getRes.ok) {
+        throw new Error(
+          getRes.status === 401 ? 'Токен неверный или истёк (401)' :
+          getRes.status === 403 ? 'Нет прав доступа (403)' :
+          getRes.status === 404 ? 'Файл не найден или токен без прав (404)' :
+          'Ошибка ' + getRes.status
+        );
+      }
       const sha = fileData.sha;
 
       // 2. Encode new content to base64
