@@ -260,9 +260,17 @@
   <div class="add-form">
     <h2>+ Добавить гостя</h2>
     <div class="form-row">
-      <div class="form-group">
+      <div class="form-group" style="flex:2;">
         <label>Имя / Семья</label>
         <input class="form-input" id="inpName" placeholder="Семья Ивановых" />
+      </div>
+      <div class="form-group" style="flex:3;">
+        <label>Обращение</label>
+        <div style="display:flex; gap:0.5rem; align-items:center; height:100%; font-size:0.8rem; color:#f0ece4;">
+          <label><input type="radio" name="guestType" value="plural" checked> Уважаемые</label>
+          <label><input type="radio" name="guestType" value="single_m"> Уважаемый</label>
+          <label><input type="radio" name="guestType" value="single_f"> Уважаемая</label>
+        </div>
       </div>
       <button class="btn-gold" onclick="addGuest()">Добавить</button>
     </div>
@@ -402,7 +410,10 @@
       key = baseKey + '_' + suffix++;
     }
 
-    guestList.push({ key, name });
+    const typeRadio = document.querySelector('input[name="guestType"]:checked');
+    const type = typeRadio ? typeRadio.value : 'plural';
+
+    guestList.push({ key, name, type });
     save();
     render();
 
@@ -431,7 +442,7 @@
       const tr  = document.createElement('tr');
       tr.innerHTML = `
         <td class="guest-num">${i+1}</td>
-        <td class="guest-name-cell">${escHtml(g.name)}</td>
+        <td class="guest-name-cell">${escHtml(g.name)} <span style="font-size:0.55rem; color:#9e9a92; letter-spacing:0.05em; text-transform:uppercase;">(${escHtml(g.type || 'plural')})</span></td>
         <td class="guest-key-cell">${escHtml(g.key)}</td>
         <td class="guest-link-cell">${url}</td>
         <td><button class="copy-btn" id="cbtn-${i}" onclick="copyLink('${url}',${i})">Скопировать</button></td>
@@ -463,7 +474,7 @@
   // ── Export ────────────────────────────────────
   function showExport() {
     const lines = guestList.map(g =>
-      `  { key: '${g.key}',${' '.repeat(Math.max(1, 22 - g.key.length))}name: '${g.name}' },`
+      `  { key: '${g.key}',${' '.repeat(Math.max(1, 25 - g.key.length))}name: '${g.name}',${' '.repeat(Math.max(1, 20 - g.name.length))}type: '${g.type || 'plural'}' },`
     ).join('\n');
     const code = `/* ============================================\n   GUESTS.JS — Список гостей свадьбы\n   ============================================ */\n\nconst GUESTS = [\n${lines}\n];\n`;
     document.getElementById('exportCode').textContent = code;

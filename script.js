@@ -23,6 +23,13 @@
 
   const found = allGuests.find(g => g.key === key);
   el.textContent = found ? found.name : decodeURIComponent(key);
+
+  const greetingEl = document.getElementById('guestGreeting');
+  if (greetingEl && found && found.type) {
+    if (found.type === 'single_m') greetingEl.textContent = 'Уважаемый';
+    else if (found.type === 'single_f') greetingEl.textContent = 'Уважаемая';
+    else greetingEl.textContent = 'Уважаемые';
+  }
 })();
 
 // ─── Particles ───────────────────────────────
