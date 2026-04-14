@@ -300,7 +300,23 @@
     <tbody id="guestTableBody"></tbody>
   </table>
 
+  <div class="bottom-actions">
+    <button class="btn-outline" onclick="copyAll()">📋 Скопировать все ссылки</button>
+    <button class="btn-gold" onclick="showExport()">💾 Экспорт guests.js</button>
+  </div>
+</div>
 
+<!-- Export Modal -->
+<div class="modal-overlay" id="exportModal">
+  <div class="modal">
+    <h2>Экспорт guests.js</h2>
+    <p>Скопируйте этот код и вставьте его в файл <code style="color:#c9a84c">guests.js</code>, затем сделайте <code style="color:#c9a84c">git push</code>.</p>
+    <div class="code-block" id="exportCode"></div>
+    <div class="modal-actions">
+      <button class="btn-close" onclick="closeModal()">Закрыть</button>
+      <button class="btn-gold" onclick="copyExport()">Скопировать код</button>
+    </div>
+  </div>
 </div>
 
 
