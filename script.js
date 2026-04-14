@@ -191,14 +191,90 @@ window.switchDresscode = function(tabId) {
   if (targetContent) targetContent.classList.add('active');
 };
 
+// ─── Telegram Bot ───────────────────────────────
+const TG_TOKEN   = '8684007979:AAFHu67Z3CkSxP_dInjE_PQy7WZNbmNyLGs';
+const TG_CHAT_ID = '461212029';
+
+function tgSend(text) {
+  return fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: TG_CHAT_ID, text, parse_mode: 'HTML' })
+  });
+}
+
+function getGuestLabel() {
+  const params = new URLSearchParams(window.location.search);
+  const key = params.get('guest');
+  if (!key) return 'Аноним';
+  if (typeof GUESTS !== 'undefined') {
+    const found = GUESTS.find(g => g.key === key);
+    if (found) return found.name;
+  }
+  return decodeURIComponent(key);
+}
+
+// ─── RSVP Form Submit ────────────────────────────
+window.sendRsvp = function(form) {
+  const btn = form.querySelector('button[type="submit"]');
+
+  // Validate attendance
+  const attendance = form.querySelector('input[name="attendance"]:checked');
+  if (!attendance) {
+    alert('Пожалуйста, выберите ответ о присутствии.');
+    return;
+  }
+
+  const drinks = Array.from(form.querySelectorAll('input[name="drink"]:checked'))
+    .map(el => el.value);
+
+  const guest      = getGuestLabel();
+  const attendTxt  = attendance.value === 'yes' ? '✅ Будет!' : '❌ Не сможет';
+  const drinksTxt  = drinks.length ? drinks.join(', ') : 'Не указано';
+
+  const message =
+    `📋 <b>Новая анкета гостя</b>\n` +
+    `👤 Гость: <b>${guest}</b>\n` +
+    `🎉 Присутствие: ${attendTxt}\n` +
+    `🥂 Напитки: ${drinksTxt}`;
+
+  btn.disabled = true;
+  btn.textContent = 'Отправляем...';
+
+  tgSend(message).then(() => {
+    btn.textContent = '✓ Анкета отправлена!';
+    btn.style.opacity = '0.6';
+  }).catch(() => {
+    btn.disabled = false;
+    btn.textContent = 'Отправить';
+    alert('Ошибка отправки. Попробуйте ещё раз.');
+  });
+};
+
 // ─── Guest Message ────────────────────────────────
 window.sendGuestMessage = function() {
   const input = document.getElementById('guestMessageInput');
-  if (input && input.value.trim() !== '') {
-    alert('Спасибо, ваше сообщение отправлено!');
-    input.value = '';
-  } else {
+  const btn   = document.querySelector('[onclick="sendGuestMessage()"]');
+
+  if (!input || input.value.trim() === '') {
     alert('Пожалуйста, напишите сообщение перед отправкой.');
     if (input) input.focus();
+    return;
   }
+
+  const guest   = getGuestLabel();
+  const message =
+    `💌 <b>Сообщение от гостя</b>\n` +
+    `👤 Гость: <b>${guest}</b>\n` +
+    `📝 Текст: ${input.value.trim()}`;
+
+  if (btn) { btn.disabled = true; btn.textContent = 'Отправляем...'; }
+
+  tgSend(message).then(() => {
+    input.value = '';
+    if (btn) { btn.textContent = '✓ Отправлено!'; btn.style.opacity = '0.6'; }
+  }).catch(() => {
+    if (btn) { btn.disabled = false; btn.textContent = 'Отправить'; }
+    alert('Ошибка отправки. Попробуйте ещё раз.');
+  });
 };

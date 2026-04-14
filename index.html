@@ -281,7 +281,7 @@
           Пожалуйста, заполните анкету ниже, это нам поможет лучше подготовиться к нашей встрече:
         </p>
 
-        <form class="guest-form" onsubmit="event.preventDefault(); alert('Спасибо! Ваша анкета успешно отправлена.');">
+        <form class="guest-form" onsubmit="event.preventDefault(); sendRsvp(this);">
           
           <div class="form-group">
             <p class="form-question">Планируете ли присутствовать на нашей свадьбе?</p>
@@ -338,6 +338,6 @@
   </main>
 
   <script src="guests.js?v=1"></script>
-  <script src="script.js?v=14"></script>
+  <script src="script.js?v=15"></script>
 </body>
 </html>
