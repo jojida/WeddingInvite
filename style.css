@@ -1343,11 +1343,12 @@ body {
 }
 
 .palette {
-  display: flex;
-  gap: 2.5rem 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 3.5rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2.5rem 0.5rem;
+  justify-items: center;
+  max-width: 600px;
+  margin: 0 auto 3.5rem;
 }
 
 .palette-swatch {
