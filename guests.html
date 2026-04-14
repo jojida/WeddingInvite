@@ -17,7 +17,7 @@
       padding: 2rem 1rem 4rem;
     }
 
-    /* ── Lock screen ──────────────────────── */
+    /* ── Lock Screen ── */
     #lockScreen {
       position: fixed; inset: 0;
       background: #0e0d0b;
@@ -28,213 +28,253 @@
     }
     #lockScreen h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
-      font-style: italic;
-      color: #c9a84c;
-      letter-spacing: 0.05em;
+      font-size: 2rem; font-style: italic;
+      color: #c9a84c; letter-spacing: 0.05em;
     }
     #lockScreen p { color: #9e9a92; font-size: 0.8rem; letter-spacing: 0.1em; }
     #pinInput {
       background: transparent;
       border: 1px solid rgba(201,168,76,0.4);
-      border-radius: 6px;
-      padding: 0.75rem 1.5rem;
-      color: #f0ece4;
-      font-size: 1.2rem;
-      text-align: center;
-      letter-spacing: 0.4em;
-      width: 200px;
-      outline: none;
+      border-radius: 6px; padding: 0.75rem 1.5rem;
+      color: #f0ece4; font-size: 1.2rem;
+      text-align: center; letter-spacing: 0.4em;
+      width: 200px; outline: none;
     }
     #pinInput:focus { border-color: #c9a84c; }
     #pinError { color: #e08080; font-size: 0.75rem; min-height: 1rem; }
-    .lock-btn {
-      background: linear-gradient(135deg, #c9a84c, #e8d48b);
-      border: none; border-radius: 6px;
-      padding: 0.7rem 2rem;
-      color: #1c1812;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 500;
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      cursor: pointer;
-      text-transform: uppercase;
-    }
 
-    /* ── Main page ──────────────────────── */
-    #mainContent { display: none; max-width: 860px; margin: 0 auto; }
+    /* ── Layout ── */
+    #mainContent { display: none; max-width: 900px; margin: 0 auto; }
 
     header {
-      text-align: center;
-      margin-bottom: 3rem;
+      text-align: center; margin-bottom: 2.5rem;
       padding-bottom: 2rem;
       border-bottom: 1px solid rgba(201,168,76,0.2);
     }
     header h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-style: italic;
+      font-size: clamp(1.8rem, 5vw, 2.8rem); font-style: italic;
       background: linear-gradient(135deg, #c9a84c, #e8d48b, #c9a84c);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.5rem;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 0.5rem;
     }
     header p { color: #9e9a92; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; }
 
-    /* Base URL display */
-    .base-url-block {
-      background: rgba(201,168,76,0.06);
-      border: 1px solid rgba(201,168,76,0.15);
-      border-radius: 10px;
-      padding: 1rem 1.5rem;
-      margin-bottom: 2.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .base-url-block span { color: #9e9a92; font-size: 0.75rem; letter-spacing: 0.1em; }
-    .base-url-block code {
-      color: #c9a84c;
-      font-size: 0.9rem;
-      flex: 1;
-    }
-
-    /* Guest count */
-    .stats {
-      display: flex;
-      gap: 1rem;
+    /* ── Add Guest Form ── */
+    .add-form {
+      background: rgba(201,168,76,0.05);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 14px;
+      padding: 1.5rem;
       margin-bottom: 2rem;
     }
+    .add-form h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-style: italic;
+      color: #c9a84c; margin-bottom: 1.2rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 0.75rem;
+      align-items: end;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label {
+      font-size: 0.65rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #9e9a92;
+    }
+    .form-input {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 0.7rem 1rem;
+      color: #f0ece4; font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus { border-color: rgba(201,168,76,0.5); }
+    .form-input::placeholder { color: #5a5752; }
+    .form-hint { font-size: 0.65rem; color: #6b6760; margin-top: 0.25rem; }
+
+    /* ── Buttons ── */
+    .btn-gold {
+      background: linear-gradient(135deg, #c9a84c, #e8d48b);
+      border: none; border-radius: 8px;
+      padding: 0.72rem 1.5rem;
+      color: #1c1812; font-family: 'Montserrat', sans-serif;
+      font-weight: 500; font-size: 0.8rem;
+      letter-spacing: 0.1em; cursor: pointer;
+      text-transform: uppercase; white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .btn-gold:hover { opacity: 0.85; }
+
+    /* ── Stats ── */
+    .stats { display: flex; gap: 1rem; margin-bottom: 2rem; }
     .stat-card {
       background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 10px;
-      padding: 1rem 1.5rem;
-      flex: 1;
-      text-align: center;
+      border-radius: 10px; padding: 1rem 1.5rem;
+      flex: 1; text-align: center;
     }
-    .stat-card .num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
-      color: #c9a84c;
-    }
+    .stat-card .num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #c9a84c; }
     .stat-card .label { font-size: 0.7rem; color: #9e9a92; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.2rem; }
 
-    /* Guest table */
-    .guest-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 3rem;
-    }
+    /* ── Guest Table ── */
+    .guest-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
     .guest-table th {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #6b6760;
-      padding: 0.75rem 1rem;
-      text-align: left;
+      font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: #6b6760;
+      padding: 0.75rem 1rem; text-align: left;
       border-bottom: 1px solid rgba(255,255,255,0.07);
     }
     .guest-table td {
-      padding: 0.9rem 1rem;
+      padding: 0.85rem 1rem;
       border-bottom: 1px solid rgba(255,255,255,0.04);
       vertical-align: middle;
     }
     .guest-table tr:hover td { background: rgba(255,255,255,0.02); }
-
-    .guest-num { color: #6b6760; font-size: 0.8rem; width: 40px; }
+    .guest-num { color: #6b6760; font-size: 0.8rem; width: 36px; }
     .guest-name-cell {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      font-style: italic;
-      color: #f0ece4;
+      font-size: 1.1rem; font-style: italic; color: #f0ece4;
     }
-    .guest-link-cell {
-      font-size: 0.78rem;
-      color: #c9a84c;
-      font-family: monospace;
-      opacity: 0.8;
-    }
+    .guest-key-cell { font-size: 0.75rem; color: #6b6760; font-family: monospace; }
+    .guest-link-cell { font-size: 0.75rem; color: #c9a84c; font-family: monospace; opacity: 0.8; }
+
     .copy-btn {
       background: rgba(201,168,76,0.1);
       border: 1px solid rgba(201,168,76,0.25);
-      border-radius: 6px;
-      padding: 0.4rem 0.9rem;
-      color: #c9a84c;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
+      border-radius: 6px; padding: 0.35rem 0.8rem;
+      color: #c9a84c; font-size: 0.7rem;
+      letter-spacing: 0.06em; cursor: pointer;
+      transition: all 0.2s; white-space: nowrap;
       font-family: 'Montserrat', sans-serif;
     }
     .copy-btn:hover { background: rgba(201,168,76,0.2); border-color: #c9a84c; }
     .copy-btn.copied { background: rgba(100,180,100,0.15); border-color: rgba(100,180,100,0.4); color: #90d090; }
 
     .open-btn {
-      background: transparent;
-      border: none;
-      color: #9e9a92;
-      font-size: 1rem;
-      cursor: pointer;
-      padding: 0.3rem 0.5rem;
-      border-radius: 4px;
-      transition: color 0.2s;
-      text-decoration: none;
+      text-decoration: none; color: #9e9a92;
+      font-size: 1rem; padding: 0.3rem 0.5rem;
+      border-radius: 4px; transition: color 0.2s; display: inline-block;
     }
     .open-btn:hover { color: #f0ece4; }
 
-    /* Copy all block */
-    .copy-all-block {
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .copy-all-btn {
-      background: linear-gradient(135deg, #c9a84c, #e8d48b);
-      border: none;
-      border-radius: 8px;
-      padding: 0.85rem 2.5rem;
-      color: #1c1812;
+    .del-btn {
+      background: transparent;
+      border: 1px solid rgba(220,80,80,0.2);
+      border-radius: 6px; padding: 0.35rem 0.7rem;
+      color: rgba(220,80,80,0.6); font-size: 0.7rem;
+      cursor: pointer; transition: all 0.2s;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 500;
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
-      cursor: pointer;
-      text-transform: uppercase;
-      transition: opacity 0.2s;
     }
-    .copy-all-btn:hover { opacity: 0.85; }
+    .del-btn:hover { border-color: rgba(220,80,80,0.6); color: #e05050; background: rgba(220,80,80,0.08); }
 
-    @media (max-width: 600px) {
-      .guest-link-cell { display: none; }
+    /* ── Bottom actions ── */
+    .bottom-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      justify-content: center; margin-top: 1.5rem;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 8px; padding: 0.72rem 1.5rem;
+      color: #c9a84c; font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem; letter-spacing: 0.1em;
+      cursor: pointer; text-transform: uppercase; transition: all 0.2s;
+    }
+    .btn-outline:hover { background: rgba(201,168,76,0.08); border-color: #c9a84c; }
+
+    /* ── Export modal ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: none; align-items: center; justify-content: center;
+      z-index: 200; padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #1a1814; border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 14px; padding: 2rem;
+      max-width: 640px; width: 100%;
+    }
+    .modal h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-style: italic;
+      color: #c9a84c; margin-bottom: 0.5rem;
+    }
+    .modal p { font-size: 0.78rem; color: #9e9a92; margin-bottom: 1rem; line-height: 1.6; }
+    .code-block {
+      background: #0a0908;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px; padding: 1rem;
+      font-family: monospace; font-size: 0.78rem;
+      color: #c9a84c; white-space: pre; overflow-x: auto;
+      max-height: 280px; overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+    .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+    .btn-close {
+      background: transparent; border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px; padding: 0.6rem 1.2rem;
+      color: #9e9a92; cursor: pointer;
+      font-family: 'Montserrat', sans-serif; font-size: 0.78rem;
+    }
+
+    .toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      background: #2a2820; border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 8px; padding: 0.75rem 1.5rem;
+      color: #c9a84c; font-size: 0.82rem;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+      z-index: 300;
+    }
+    .toast.show { opacity: 1; }
+
+    @media (max-width: 640px) {
+      .form-row { grid-template-columns: 1fr; }
+      .guest-link-cell, .guest-key-cell { display: none; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── Lock Screen ── -->
+<!-- Lock Screen -->
 <div id="lockScreen">
   <h1>Вадим & Дарья</h1>
-  <p>Введите PIN для доступа к списку гостей</p>
+  <p>Введите PIN для доступа</p>
   <input type="password" id="pinInput" placeholder="••••" maxlength="6" />
   <p id="pinError"></p>
-  <button class="lock-btn" onclick="checkPin()">Войти</button>
+  <button class="btn-gold" onclick="checkPin()">Войти</button>
 </div>
 
-<!-- ── Main Content ── -->
+<!-- Main -->
 <div id="mainContent">
   <header>
     <h1>Список гостей</h1>
     <p>Вадим & Дарья · 18 июля 2026</p>
   </header>
 
-  <div class="base-url-block">
-    <span>Базовый URL:</span>
-    <code id="baseUrl">https://vadim-darya.ru/?guest=</code>
+  <!-- Add form -->
+  <div class="add-form">
+    <h2>+ Добавить гостя</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Имя / Семья</label>
+        <input class="form-input" id="inpName" placeholder="Семья Ивановых" />
+      </div>
+      <div class="form-group">
+        <label>Ключ для URL</label>
+        <input class="form-input" id="inpKey" placeholder="ivanovy" />
+        <span class="form-hint" id="keyHint">vadim-darya.ru/?guest=ivanovy</span>
+      </div>
+      <button class="btn-gold" onclick="addGuest()">Добавить</button>
+    </div>
+    <p id="addError" style="color:#e08080;font-size:0.75rem;margin-top:0.75rem;min-height:1rem;"></p>
   </div>
 
+  <!-- Stats -->
   <div class="stats">
     <div class="stat-card">
       <div class="num" id="guestCount">0</div>
@@ -246,12 +286,15 @@
     </div>
   </div>
 
+  <!-- Table -->
   <table class="guest-table">
     <thead>
       <tr>
         <th>#</th>
         <th>Имя / Семья</th>
+        <th>Ключ</th>
         <th>Ссылка</th>
+        <th></th>
         <th></th>
         <th></th>
       </tr>
@@ -259,81 +302,202 @@
     <tbody id="guestTableBody"></tbody>
   </table>
 
-  <div class="copy-all-block">
-    <button class="copy-all-btn" onclick="copyAll()">📋 Скопировать все ссылки</button>
+  <div class="bottom-actions">
+    <button class="btn-outline" onclick="copyAll()">📋 Скопировать все ссылки</button>
+    <button class="btn-gold" onclick="showExport()">💾 Экспорт guests.js</button>
   </div>
 </div>
 
+<!-- Export Modal -->
+<div class="modal-overlay" id="exportModal">
+  <div class="modal">
+    <h2>Экспорт guests.js</h2>
+    <p>Скопируйте этот код и вставьте его в файл <code style="color:#c9a84c">guests.js</code>, затем сделайте <code style="color:#c9a84c">git push</code>.</p>
+    <div class="code-block" id="exportCode"></div>
+    <div class="modal-actions">
+      <button class="btn-close" onclick="closeModal()">Закрыть</button>
+      <button class="btn-gold" onclick="copyExport()">Скопировать код</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script src="guests.js?v=1"></script>
 <script>
-  const PIN = '1807'; // ← Измените на свой PIN (дата свадьбы)
+  const PIN  = '1807';
+  const BASE = 'https://vadim-darya.ru/?guest=';
+  const LS_KEY = 'weddingGuests';
 
+  // ── Auth ──────────────────────────────────────
   function checkPin() {
     const val = document.getElementById('pinInput').value;
     if (val === PIN) {
       document.getElementById('lockScreen').style.display = 'none';
       document.getElementById('mainContent').style.display = 'block';
-      buildTable();
+      initGuests();
     } else {
       document.getElementById('pinError').textContent = 'Неверный PIN';
       document.getElementById('pinInput').value = '';
     }
   }
-
   document.getElementById('pinInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') checkPin();
     document.getElementById('pinError').textContent = '';
   });
 
-  const BASE = 'https://vadim-darya.ru/?guest=';
+  // ── Data ──────────────────────────────────────
+  let guestList = [];
 
-  function buildTable() {
-    document.getElementById('guestCount').textContent = GUESTS.length;
-    document.getElementById('linkCount').textContent  = GUESTS.length;
+  function initGuests() {
+    const saved = localStorage.getItem(LS_KEY);
+    if (saved) {
+      guestList = JSON.parse(saved);
+    } else if (typeof GUESTS !== 'undefined') {
+      guestList = [...GUESTS];
+      save();
+    }
+    render();
+  }
 
+  function save() {
+    localStorage.setItem(LS_KEY, JSON.stringify(guestList));
+  }
+
+  // ── Auto key from name ────────────────────────
+  document.getElementById('inpName').addEventListener('input', function() {
+    const v = this.value.trim();
+    if (v && !document.getElementById('inpKey')._edited) {
+      const auto = toKey(v);
+      document.getElementById('inpKey').value = auto;
+      document.getElementById('keyHint').textContent = BASE + auto;
+    }
+  });
+  document.getElementById('inpKey').addEventListener('input', function() {
+    this._edited = !!this.value;
+    document.getElementById('keyHint').textContent = BASE + (this.value || '...');
+  });
+
+  function toKey(str) {
+    return str.toLowerCase()
+      .replace(/[её]/g,'e').replace(/[ъь]/g,'')
+      .replace(/ж/g,'zh').replace(/ш/g,'sh').replace(/щ/g,'sch')
+      .replace(/ч/g,'ch').replace(/ц/g,'ts').replace(/х/g,'kh')
+      .replace(/а/g,'a').replace(/б/g,'b').replace(/в/g,'v')
+      .replace(/г/g,'g').replace(/д/g,'d').replace(/з/g,'z')
+      .replace(/и/g,'i').replace(/й/g,'y').replace(/к/g,'k')
+      .replace(/л/g,'l').replace(/м/g,'m').replace(/н/g,'n')
+      .replace(/о/g,'o').replace(/п/g,'p').replace(/р/g,'r')
+      .replace(/с/g,'s').replace(/т/g,'t').replace(/у/g,'u')
+      .replace(/ф/g,'f').replace(/э/g,'e').replace(/ю/g,'yu')
+      .replace(/я/g,'ya').replace(/[^a-z0-9]+/g,'_')
+      .replace(/^_+|_+$/g,'');
+  }
+
+  // ── Add ───────────────────────────────────────
+  function addGuest() {
+    const name = document.getElementById('inpName').value.trim();
+    const key  = document.getElementById('inpKey').value.trim().replace(/\s+/g,'_');
+    const err  = document.getElementById('addError');
+    err.textContent = '';
+
+    if (!name) { err.textContent = 'Введите имя гостя'; return; }
+    if (!key)  { err.textContent = 'Введите ключ для URL'; return; }
+    if (!/^[a-z0-9_-]+$/.test(key)) { err.textContent = 'Ключ: только латиница, цифры и _'; return; }
+    if (guestList.find(g => g.key === key)) { err.textContent = 'Такой ключ уже существует'; return; }
+
+    guestList.push({ key, name });
+    save();
+    render();
+
+    document.getElementById('inpName').value = '';
+    document.getElementById('inpKey').value = '';
+    document.getElementById('inpKey')._edited = false;
+    document.getElementById('keyHint').textContent = BASE + '...';
+    showToast('Гость добавлен ✓');
+  }
+
+  // ── Delete ────────────────────────────────────
+  function deleteGuest(key) {
+    if (!confirm('Удалить гостя?')) return;
+    guestList = guestList.filter(g => g.key !== key);
+    save();
+    render();
+    showToast('Гость удалён');
+  }
+
+  // ── Render ────────────────────────────────────
+  function render() {
+    document.getElementById('guestCount').textContent = guestList.length;
+    document.getElementById('linkCount').textContent  = guestList.length;
     const tbody = document.getElementById('guestTableBody');
     tbody.innerHTML = '';
-
-    GUESTS.forEach((g, i) => {
+    guestList.forEach((g, i) => {
       const url = BASE + g.key;
-      const tr = document.createElement('tr');
+      const tr  = document.createElement('tr');
       tr.innerHTML = `
-        <td class="guest-num">${i + 1}</td>
-        <td class="guest-name-cell">${g.name}</td>
+        <td class="guest-num">${i+1}</td>
+        <td class="guest-name-cell">${escHtml(g.name)}</td>
+        <td class="guest-key-cell">${escHtml(g.key)}</td>
         <td class="guest-link-cell">${url}</td>
-        <td>
-          <button class="copy-btn" id="btn-${i}" onclick="copyLink('${url}', ${i})">
-            Скопировать
-          </button>
-        </td>
-        <td>
-          <a class="open-btn" href="${url}" target="_blank" title="Открыть">↗</a>
-        </td>
+        <td><button class="copy-btn" id="cbtn-${i}" onclick="copyLink('${url}',${i})">Скопировать</button></td>
+        <td><a class="open-btn" href="${url}" target="_blank" title="Открыть">↗</a></td>
+        <td><button class="del-btn" onclick="deleteGuest('${escHtml(g.key)}')">✕</button></td>
       `;
       tbody.appendChild(tr);
     });
   }
 
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── Copy ─────────────────────────────────────
   function copyLink(url, idx) {
     navigator.clipboard.writeText(url).then(() => {
-      const btn = document.getElementById('btn-' + idx);
-      btn.textContent = '✓ Скопировано';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'Скопировать';
-        btn.classList.remove('copied');
-      }, 2000);
+      const btn = document.getElementById('cbtn-' + idx);
+      btn.textContent = '✓ Скопировано'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Скопировать'; btn.classList.remove('copied'); }, 2000);
     });
   }
 
   function copyAll() {
-    const text = GUESTS.map(g => `${g.name}: ${BASE + g.key}`).join('\n');
-    navigator.clipboard.writeText(text).then(() => {
-      const btn = document.querySelector('.copy-all-btn');
-      btn.textContent = '✓ Все ссылки скопированы!';
-      setTimeout(() => btn.textContent = '📋 Скопировать все ссылки', 2500);
-    });
+    const text = guestList.map(g => `${g.name}:\n${BASE + g.key}`).join('\n\n');
+    navigator.clipboard.writeText(text).then(() => showToast('Все ссылки скопированы ✓'));
   }
+
+  // ── Export ────────────────────────────────────
+  function showExport() {
+    const lines = guestList.map(g =>
+      `  { key: '${g.key}',${' '.repeat(Math.max(1, 22 - g.key.length))}name: '${g.name}' },`
+    ).join('\n');
+    const code = `/* ============================================\n   GUESTS.JS — Список гостей свадьбы\n   ============================================ */\n\nconst GUESTS = [\n${lines}\n];\n`;
+    document.getElementById('exportCode').textContent = code;
+    document.getElementById('exportModal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('exportModal').classList.remove('open');
+  }
+
+  function copyExport() {
+    navigator.clipboard.writeText(document.getElementById('exportCode').textContent)
+      .then(() => { showToast('Код скопирован ✓'); closeModal(); });
+  }
+
+  // ── Toast ─────────────────────────────────────
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // Enter to add
+  ['inpName','inpKey'].forEach(id => {
+    document.getElementById(id).addEventListener('keydown', e => {
+      if (e.key === 'Enter') addGuest();
+    });
+  });
 </script>
 </body>
 </html>
