@@ -3,11 +3,7 @@
    ============================================ */
 
 // ─── Guest Personalisation ────────────────────
-// Guest list: add new guests here as { key, name }
-const GUESTS = [
-  { key: 'korostinskie',   name: 'Семья Коростинских' },
-  { key: 'alexandr_julia', name: 'Александр & Юлия Коростинские' },
-];
+// Guest list is defined in guests.js (loaded before this file)
 
 (function applyGuestName() {
   const params = new URLSearchParams(window.location.search);
@@ -15,7 +11,7 @@ const GUESTS = [
   const el     = document.getElementById('guestName');
   if (!el) return;
 
-  if (key) {
+  if (key && typeof GUESTS !== 'undefined') {
     const found = GUESTS.find(g => g.key === key);
     el.textContent = found ? found.name : decodeURIComponent(key);
   }

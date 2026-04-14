@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Список гостей — Вадим & Дарья</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #0e0d0b;
+      color: #f0ece4;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    /* ── Lock screen ──────────────────────── */
+    #lockScreen {
+      position: fixed; inset: 0;
+      background: #0e0d0b;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    #lockScreen h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-style: italic;
+      color: #c9a84c;
+      letter-spacing: 0.05em;
+    }
+    #lockScreen p { color: #9e9a92; font-size: 0.8rem; letter-spacing: 0.1em; }
+    #pinInput {
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 6px;
+      padding: 0.75rem 1.5rem;
+      color: #f0ece4;
+      font-size: 1.2rem;
+      text-align: center;
+      letter-spacing: 0.4em;
+      width: 200px;
+      outline: none;
+    }
+    #pinInput:focus { border-color: #c9a84c; }
+    #pinError { color: #e08080; font-size: 0.75rem; min-height: 1rem; }
+    .lock-btn {
+      background: linear-gradient(135deg, #c9a84c, #e8d48b);
+      border: none; border-radius: 6px;
+      padding: 0.7rem 2rem;
+      color: #1c1812;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    /* ── Main page ──────────────────────── */
+    #mainContent { display: none; max-width: 860px; margin: 0 auto; }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-style: italic;
+      background: linear-gradient(135deg, #c9a84c, #e8d48b, #c9a84c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    header p { color: #9e9a92; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; }
+
+    /* Base URL display */
+    .base-url-block {
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .base-url-block span { color: #9e9a92; font-size: 0.75rem; letter-spacing: 0.1em; }
+    .base-url-block code {
+      color: #c9a84c;
+      font-size: 0.9rem;
+      flex: 1;
+    }
+
+    /* Guest count */
+    .stats {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      flex: 1;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: #c9a84c;
+    }
+    .stat-card .label { font-size: 0.7rem; color: #9e9a92; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.2rem; }
+
+    /* Guest table */
+    .guest-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 3rem;
+    }
+    .guest-table th {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #6b6760;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .guest-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: middle;
+    }
+    .guest-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .guest-num { color: #6b6760; font-size: 0.8rem; width: 40px; }
+    .guest-name-cell {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: #f0ece4;
+    }
+    .guest-link-cell {
+      font-size: 0.78rem;
+      color: #c9a84c;
+      font-family: monospace;
+      opacity: 0.8;
+    }
+    .copy-btn {
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 6px;
+      padding: 0.4rem 0.9rem;
+      color: #c9a84c;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .copy-btn:hover { background: rgba(201,168,76,0.2); border-color: #c9a84c; }
+    .copy-btn.copied { background: rgba(100,180,100,0.15); border-color: rgba(100,180,100,0.4); color: #90d090; }
+
+    .open-btn {
+      background: transparent;
+      border: none;
+      color: #9e9a92;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    .open-btn:hover { color: #f0ece4; }
+
+    /* Copy all block */
+    .copy-all-block {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .copy-all-btn {
+      background: linear-gradient(135deg, #c9a84c, #e8d48b);
+      border: none;
+      border-radius: 8px;
+      padding: 0.85rem 2.5rem;
+      color: #1c1812;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+    .copy-all-btn:hover { opacity: 0.85; }
+
+    @media (max-width: 600px) {
+      .guest-link-cell { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Lock Screen ── -->
+<div id="lockScreen">
+  <h1>Вадим & Дарья</h1>
+  <p>Введите PIN для доступа к списку гостей</p>
+  <input type="password" id="pinInput" placeholder="••••" maxlength="6" />
+  <p id="pinError"></p>
+  <button class="lock-btn" onclick="checkPin()">Войти</button>
+</div>
+
+<!-- ── Main Content ── -->
+<div id="mainContent">
+  <header>
+    <h1>Список гостей</h1>
+    <p>Вадим & Дарья · 18 июля 2026</p>
+  </header>
+
+  <div class="base-url-block">
+    <span>Базовый URL:</span>
+    <code id="baseUrl">https://vadim-darya.ru/?guest=</code>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="num" id="guestCount">0</div>
+      <div class="label">Гостей</div>
+    </div>
+    <div class="stat-card">
+      <div class="num" id="linkCount">0</div>
+      <div class="label">Ссылок</div>
+    </div>
+  </div>
+
+  <table class="guest-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Имя / Семья</th>
+        <th>Ссылка</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="guestTableBody"></tbody>
+  </table>
+
+  <div class="copy-all-block">
+    <button class="copy-all-btn" onclick="copyAll()">📋 Скопировать все ссылки</button>
+  </div>
+</div>
+
+<script src="guests.js?v=1"></script>
+<script>
+  const PIN = '1807'; // ← Измените на свой PIN (дата свадьбы)
+
+  function checkPin() {
+    const val = document.getElementById('pinInput').value;
+    if (val === PIN) {
+      document.getElementById('lockScreen').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      buildTable();
+    } else {
+      document.getElementById('pinError').textContent = 'Неверный PIN';
+      document.getElementById('pinInput').value = '';
+    }
+  }
+
+  document.getElementById('pinInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkPin();
+    document.getElementById('pinError').textContent = '';
+  });
+
+  const BASE = 'https://vadim-darya.ru/?guest=';
+
+  function buildTable() {
+    document.getElementById('guestCount').textContent = GUESTS.length;
+    document.getElementById('linkCount').textContent  = GUESTS.length;
+
+    const tbody = document.getElementById('guestTableBody');
+    tbody.innerHTML = '';
+
+    GUESTS.forEach((g, i) => {
+      const url = BASE + g.key;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="guest-num">${i + 1}</td>
+        <td class="guest-name-cell">${g.name}</td>
+        <td class="guest-link-cell">${url}</td>
+        <td>
+          <button class="copy-btn" id="btn-${i}" onclick="copyLink('${url}', ${i})">
+            Скопировать
+          </button>
+        </td>
+        <td>
+          <a class="open-btn" href="${url}" target="_blank" title="Открыть">↗</a>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function copyLink(url, idx) {
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.getElementById('btn-' + idx);
+      btn.textContent = '✓ Скопировано';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Скопировать';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  function copyAll() {
+    const text = GUESTS.map(g => `${g.name}: ${BASE + g.key}`).join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.copy-all-btn');
+      btn.textContent = '✓ Все ссылки скопированы!';
+      setTimeout(() => btn.textContent = '📋 Скопировать все ссылки', 2500);
+    });
+  }
+</script>
+</body>
+</html>
