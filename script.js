@@ -9,13 +9,20 @@
   const params = new URLSearchParams(window.location.search);
   const key    = params.get('guest');
   const el     = document.getElementById('guestName');
-  if (!el) return;
+  if (!el || !key) return;
 
-  if (key && typeof GUESTS !== 'undefined') {
-    const found = GUESTS.find(g => g.key === key);
-    el.textContent = found ? found.name : decodeURIComponent(key);
-  }
-  // If no param — keep default "Дорогие гости"
+  // Merge guests.js + guests added via admin panel (localStorage)
+  let allGuests = typeof GUESTS !== 'undefined' ? [...GUESTS] : [];
+  try {
+    const saved = localStorage.getItem('weddingGuests');
+    if (saved) {
+      const local = JSON.parse(saved);
+      local.forEach(g => { if (!allGuests.find(x => x.key === g.key)) allGuests.push(g); });
+    }
+  } catch(e) {}
+
+  const found = allGuests.find(g => g.key === key);
+  el.textContent = found ? found.name : decodeURIComponent(key);
 })();
 
 // ─── Particles ───────────────────────────────
