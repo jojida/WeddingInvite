@@ -207,11 +207,20 @@ function getGuestLabel() {
   const params = new URLSearchParams(window.location.search);
   const key = params.get('guest');
   if (!key) return 'Аноним';
-  if (typeof GUESTS !== 'undefined') {
-    const found = GUESTS.find(g => g.key === key);
-    if (found) return found.name;
-  }
-  return decodeURIComponent(key);
+
+  // Merge guests from guests.js file + any added via admin panel (localStorage)
+  let allGuests = typeof GUESTS !== 'undefined' ? [...GUESTS] : [];
+  try {
+    const saved = localStorage.getItem('weddingGuests');
+    if (saved) {
+      const local = JSON.parse(saved);
+      // Add local guests that aren't already in the array
+      local.forEach(g => { if (!allGuests.find(x => x.key === g.key)) allGuests.push(g); });
+    }
+  } catch(e) {}
+
+  const found = allGuests.find(g => g.key === key);
+  return found ? found.name : decodeURIComponent(key);
 }
 
 // ─── RSVP Form Submit ────────────────────────────
