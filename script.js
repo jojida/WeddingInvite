@@ -26,9 +26,9 @@
 
   const greetingEl = document.getElementById('guestGreeting');
   if (greetingEl && found && found.type) {
-    if (found.type === 'single_m') greetingEl.textContent = 'Уважаемый';
-    else if (found.type === 'single_f') greetingEl.textContent = 'Уважаемая';
-    else greetingEl.textContent = 'Уважаемые';
+    if (found.type === 'single_m') greetingEl.textContent = 'Дорогой';
+    else if (found.type === 'single_f') greetingEl.textContent = 'Дорогая';
+    else greetingEl.textContent = 'Дорогие';
   }
 })();
 
