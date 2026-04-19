@@ -16,9 +16,6 @@ const GUESTS = [
   { key: 'galina_petrovna_anna_i_arina', name: 'Галина Петровна , Анна и Арина', type: 'plural' },
   { key: 'aleksey_anna_polina_i_zoya', name: 'Алексей, Анна, Полина и Зоя', type: 'plural' },
   { key: 'evgeniy_mariya_sofiya_i_sergey', name: 'Евгений, Мария, София и Сергей', type: 'plural' },
-  { key: 'mariya_velichko',          name: 'Мария Величко',       type: 'single_f' },
-  { key: 'lila_tuzkova',             name: 'Лила Тузкова',        type: 'single_f' },
-  { key: 'ekaterina_berkut',         name: 'Екатерина Беркут',    type: 'single_f' },
   { key: 'nina_petrovna',            name: 'Нина Петровна',       type: 'single_f' },
   { key: 'tetya_valya_i_dyadya_volodya', name: 'Тетя Валя и Дядя Володя', type: 'plural' },
   { key: 'tetya_elina_i_sasha',      name: 'Тетя Элина и Саша',   type: 'plural' },
@@ -26,4 +23,7 @@ const GUESTS = [
   { key: 'vyacheslav_natalya_oleg_i_mariya', name: 'Вячеслав, Наталья, Олег и Мария', type: 'plural' },
   { key: 'mishel',                   name: 'Мишель',              type: 'single_m' },
   { key: 'anton',                    name: 'Антон',               type: 'single_m' },
+  { key: 'mariya',                   name: 'Мария',               type: 'single_f' },
+  { key: 'lila',                     name: 'Лила',                type: 'single_f' },
+  { key: 'ekaterina',                name: 'Екатерина',           type: 'single_f' },
 ];
