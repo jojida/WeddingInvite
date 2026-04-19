@@ -20,4 +20,10 @@ const GUESTS = [
   { key: 'lila_tuzkova',             name: 'Лила Тузкова',        type: 'single_f' },
   { key: 'ekaterina_berkut',         name: 'Екатерина Беркут',    type: 'single_f' },
   { key: 'nina_petrovna',            name: 'Нина Петровна',       type: 'single_f' },
+  { key: 'tetya_valya_i_dyadya_volodya', name: 'Тетя Валя и Дядя Володя', type: 'plural' },
+  { key: 'tetya_elina_i_sasha',      name: 'Тетя Элина и Саша',   type: 'plural' },
+  { key: 'nikolay_i_larisa',         name: 'Николай и Лариса',    type: 'plural' },
+  { key: 'vyacheslav_natalya_oleg_i_mariya', name: 'Вячеслав, Наталья, Олег и Мария', type: 'plural' },
+  { key: 'mishel',                   name: 'Мишель',              type: 'single_m' },
+  { key: 'anton',                    name: 'Антон',               type: 'single_m' },
 ];
