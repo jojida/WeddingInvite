@@ -26,4 +26,5 @@ const GUESTS = [
   { key: 'mariya',                   name: 'Мария',               type: 'single_f' },
   { key: 'lila',                     name: 'Лила',                type: 'single_f' },
   { key: 'ekaterina',                name: 'Екатерина',           type: 'single_f' },
+  { key: 'igor_i_nadezhda',          name: 'Игорь и Надежда',     type: 'plural' },
 ];
